@@ -143,70 +143,56 @@
 <section>
   <div class="wrap">
     <h2>The solver in action</h2>
-    <p>Each clip shows the analytical Levenberg&ndash;Marquardt solver converging on a public
-      benchmark: the fitted MANO hand alongside the energy and error decreasing over LM iterations.</p>
+    <p>The analytical Levenberg&ndash;Marquardt solver converging: the fitted MANO hand alongside
+      the energy and error decreasing over the solver iterations.</p>
+    <div style="max-width:460px;margin:0 auto">
+      <video src="static/videos/convergence.mp4" autoplay muted loop playsinline
+        style="width:100%;border-radius:10px;border:1px solid var(--line);background:#000;display:block"></video>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2>Qualitative results across benchmarks</h2>
+    <p>Multi-view hand mesh recovery on public benchmarks, from the submitted supplementary video.</p>
     <div class="grid">
       <div class="card">
-        <video src="static/videos/HO3D_train_s34_optim.mp4" autoplay muted loop playsinline></video>
-        <p>HO3D &mdash; solver convergence.</p>
+        <video src="static/videos/ho3d.mp4" autoplay muted loop playsinline></video>
+        <p>HO3D</p>
       </div>
       <div class="card">
-        <video src="static/videos/ARCTIC_TEST_s0_optim.mp4" autoplay muted loop playsinline></video>
-        <p>ARCTIC &mdash; solver convergence.</p>
+        <video src="static/videos/dexycb.mp4" autoplay muted loop playsinline></video>
+        <p>DexYCB</p>
       </div>
       <div class="card">
-        <video src="static/videos/DEXYCB_test_s3_optim.mp4" autoplay muted loop playsinline></video>
-        <p>DexYCB &mdash; solver convergence.</p>
+        <video src="static/videos/arctic.mp4" autoplay muted loop playsinline></video>
+        <p>ARCTIC</p>
       </div>
       <div class="card">
-        <video src="static/videos/temporal_DexYCB_win0_full.mp4" autoplay muted loop playsinline></video>
-        <p>DexYCB &mdash; temporal sequence fit.</p>
+        <video src="static/videos/interhand.mp4" autoplay muted loop playsinline></video>
+        <p>InterHand2.6M</p>
+      </div>
+      <div class="card">
+        <video src="static/videos/oakink.mp4" autoplay muted loop playsinline></video>
+        <p>OakInk</p>
       </div>
     </div>
-  </div>
-</section>
-
-<section>
-  <div class="wrap">
-    <h2>Temporal sequences</h2>
-    <div class="full" style="margin-bottom:22px">
-      <video src="static/videos/temporal_HO3D_win0.mp4" autoplay muted loop playsinline></video>
-      <p style="color:var(--muted);font-size:14.5px;margin:9px 2px 0">HO3D &mdash; UA-Fit applied
-        frame by frame across a sequence.</p>
-    </div>
-    <div class="full">
-      <video src="static/videos/temporal_Arctic_win0.mp4" autoplay muted loop playsinline></video>
-      <p style="color:var(--muted);font-size:14.5px;margin:9px 2px 0">ARCTIC &mdash; UA-Fit applied
-        frame by frame across a sequence.</p>
-    </div>
-  </div>
-</section>
-
-<section>
-  <div class="wrap">
-    <h2>Results across benchmarks</h2>
-    <figure>
-      <img src="static/images/fig_views.png" alt="Accuracy vs. number of views">
-      <figcaption>Per-vertex error (MPVPE) versus the number of views, against the parametric
-        POEM-v2 baseline. Shaded columns mark view counts where UA-Fit is at least as accurate;
-        the gain is largest on the shape-diverse InterHand2.6M and HO3D.</figcaption>
-    </figure>
-    <figure>
+    <figure style="margin-top:26px">
       <img src="static/images/fig_qualitative.png" alt="Qualitative results">
-      <figcaption>Qualitative multi-view hand mesh recovery across benchmarks.</figcaption>
+      <figcaption>Qualitative multi-view hand mesh recovery across benchmarks (main paper, Fig.).</figcaption>
     </figure>
   </div>
 </section>
 
 <section>
   <div class="wrap">
-    <h2>Fast by construction</h2>
-    <figure>
-      <img src="static/images/fig_batch_scaling.png" alt="Latency and throughput vs. batch size">
-      <figcaption>The closed-form kinematic Jacobian keeps reconstruction latency almost flat with
-        batch size, about 12&times; below differentiating the model automatically, so the full
-        pipeline scales to high hand throughput.</figcaption>
-    </figure>
+    <h2>Zero-shot generalization</h2>
+    <p>UA-Fit applied zero-shot, with no fine-tuning, to GigaHands, a capture set unseen during
+      training.</p>
+    <div class="full">
+      <video src="static/videos/gigahands_zeroshot.mp4" autoplay muted loop playsinline></video>
+    </div>
   </div>
 </section>
 
