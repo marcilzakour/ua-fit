@@ -187,6 +187,30 @@
 
 <section>
   <div class="wrap">
+    <h2>Accuracy across view counts</h2>
+    <figure>
+      <img src="static/images/fig_views.png" alt="Accuracy vs. number of views">
+      <figcaption>Per-vertex error (MPVPE) versus the number of views, against the parametric
+        POEM-v2 baseline. Shaded columns mark view counts where UA-Fit is at least as accurate;
+        the gain is largest on the shape-diverse InterHand2.6M and HO3D. (Supplementary.)</figcaption>
+    </figure>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2>Fast by construction</h2>
+    <figure>
+      <img src="static/images/fig_batch_scaling.png" alt="Latency and throughput vs. batch size">
+      <figcaption>The closed-form kinematic Jacobian keeps reconstruction latency almost flat with
+        batch size, about 12&times; below differentiating the model automatically, so the full
+        pipeline scales to high hand throughput. (Supplementary.)</figcaption>
+    </figure>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
     <h2>Zero-shot generalization</h2>
     <p>UA-Fit applied zero-shot, with no fine-tuning, to GigaHands, a capture set unseen during
       training.</p>
