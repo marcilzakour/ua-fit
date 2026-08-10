@@ -40,6 +40,20 @@
   .card video{width:100%;border-radius:10px;border:1px solid var(--line);display:block;background:#000}
   .card p{color:var(--muted);font-size:14.5px;margin:9px 2px 0}
   .full video{width:100%;border-radius:10px;border:1px solid var(--line);background:#000}
+  /* video carousel */
+  .carousel{position:relative;overflow:hidden;border-radius:10px}
+  .track{display:flex;transition:transform .45s ease}
+  .slide{min-width:100%;box-sizing:border-box}
+  .slide video{width:100%;display:block;background:#000;border:1px solid var(--line);border-radius:10px}
+  .slide p{color:var(--muted);font-size:15px;text-align:center;margin:10px 0 0;font-weight:600}
+  .nav{position:absolute;top:42%;transform:translateY(-50%);width:44px;height:44px;border:none;
+    border-radius:50%;background:rgba(0,0,0,.5);color:#fff;font-size:26px;line-height:44px;
+    text-align:center;cursor:pointer;z-index:2;padding:0;transition:background .2s}
+  .nav:hover{background:rgba(0,0,0,.8)}
+  .nav.prev{left:12px} .nav.next{right:12px}
+  .dots{display:flex;gap:9px;justify-content:center;margin-top:14px}
+  .dot{width:9px;height:9px;border-radius:50%;border:none;background:var(--line);cursor:pointer;padding:0;transition:background .2s}
+  .dot.active{background:var(--accent)}
   .kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin:8px 0 6px}
   .kpi{background:var(--soft);border:1px solid var(--line);border-radius:12px;padding:18px;text-align:center}
   .kpi b{display:block;font-size:26px;color:var(--accent-d);font-weight:760;letter-spacing:-.02em}
@@ -155,33 +169,26 @@
 <section>
   <div class="wrap">
     <h2>Qualitative results across benchmarks</h2>
-    <p>Multi-view hand mesh recovery on public benchmarks, from the submitted supplementary video.</p>
-    <div class="grid">
-      <div class="card">
-        <video src="static/videos/ho3d.mp4" autoplay muted loop playsinline></video>
-        <p>HO3D</p>
+    <p>Multi-view hand mesh recovery on public benchmarks, from the submitted supplementary video.
+      Use the arrows or dots to switch between datasets.</p>
+    <div class="carousel" id="benchCarousel">
+      <div class="track">
+        <div class="slide"><video src="static/videos/ho3d.mp4" muted loop playsinline></video><p>HO3D</p></div>
+        <div class="slide"><video src="static/videos/dexycb.mp4" muted loop playsinline></video><p>DexYCB</p></div>
+        <div class="slide"><video src="static/videos/arctic.mp4" muted loop playsinline></video><p>ARCTIC</p></div>
+        <div class="slide"><video src="static/videos/interhand.mp4" muted loop playsinline></video><p>InterHand2.6M</p></div>
+        <div class="slide"><video src="static/videos/oakink.mp4" muted loop playsinline></video><p>OakInk</p></div>
       </div>
-      <div class="card">
-        <video src="static/videos/dexycb.mp4" autoplay muted loop playsinline></video>
-        <p>DexYCB</p>
-      </div>
-      <div class="card">
-        <video src="static/videos/arctic.mp4" autoplay muted loop playsinline></video>
-        <p>ARCTIC</p>
-      </div>
-      <div class="card">
-        <video src="static/videos/interhand.mp4" autoplay muted loop playsinline></video>
-        <p>InterHand2.6M</p>
-      </div>
-      <div class="card">
-        <video src="static/videos/oakink.mp4" autoplay muted loop playsinline></video>
-        <p>OakInk</p>
+      <button class="nav prev" aria-label="Previous">&#8249;</button>
+      <button class="nav next" aria-label="Next">&#8250;</button>
+      <div class="dots">
+        <button class="dot" aria-label="HO3D"></button>
+        <button class="dot" aria-label="DexYCB"></button>
+        <button class="dot" aria-label="ARCTIC"></button>
+        <button class="dot" aria-label="InterHand2.6M"></button>
+        <button class="dot" aria-label="OakInk"></button>
       </div>
     </div>
-    <figure style="margin-top:26px">
-      <img src="static/images/fig_qualitative.png" alt="Qualitative results">
-      <figcaption>Qualitative multi-view hand mesh recovery across benchmarks (main paper, Fig.).</figcaption>
-    </figure>
   </div>
 </section>
 
@@ -242,5 +249,36 @@
   </div>
 </footer>
 
+<script>
+(function(){
+  var c = document.getElementById('benchCarousel');
+  if(!c) return;
+  var track = c.querySelector('.track');
+  var slides = Array.prototype.slice.call(c.querySelectorAll('.slide'));
+  var dots = Array.prototype.slice.call(c.querySelectorAll('.dot'));
+  var i = 0, n = slides.length;
+  function show(k){
+    i = (k + n) % n;
+    track.style.transform = 'translateX(' + (-i * 100) + '%)';
+    dots.forEach(function(d, j){ d.classList.toggle('active', j === i); });
+    slides.forEach(function(s, j){
+      var v = s.querySelector('video');
+      if(!v) return;
+      if(j === i){ var p = v.play(); if(p && p.catch) p.catch(function(){}); }
+      else { v.pause(); }
+    });
+  }
+  c.querySelector('.next').addEventListener('click', function(){ show(i + 1); });
+  c.querySelector('.prev').addEventListener('click', function(){ show(i - 1); });
+  dots.forEach(function(d, j){ d.addEventListener('click', function(){ show(j); }); });
+  // keyboard arrows when the carousel is in view / focused
+  c.setAttribute('tabindex', '0');
+  c.addEventListener('keydown', function(e){
+    if(e.key === 'ArrowLeft'){ show(i - 1); }
+    else if(e.key === 'ArrowRight'){ show(i + 1); }
+  });
+  show(0);
+})();
+</script>
 </body>
 </html>
