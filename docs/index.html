@@ -194,6 +194,17 @@
 
 <section>
   <div class="wrap">
+    <h2>Zero-shot generalization</h2>
+    <p>Applied with no fine-tuning to capture setups unseen during training: an internal multi-view
+      dataset and GigaHands.</p>
+    <div class="full">
+      <video src="static/videos/gigahands_zeroshot.mp4" autoplay muted loop playsinline></video>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
     <h2>Accuracy across view counts</h2>
     <figure>
       <img src="static/images/fig_views.png" alt="Accuracy vs. number of views">
@@ -213,17 +224,6 @@
         batch size, about 12&times; below differentiating the model automatically, so the full
         pipeline scales to high hand throughput. (Supplementary.)</figcaption>
     </figure>
-  </div>
-</section>
-
-<section>
-  <div class="wrap">
-    <h2>Zero-shot generalization</h2>
-    <p>UA-Fit applied zero-shot, with no fine-tuning, to GigaHands, a capture set unseen during
-      training.</p>
-    <div class="full">
-      <video src="static/videos/gigahands_zeroshot.mp4" autoplay muted loop playsinline></video>
-    </div>
   </div>
 </section>
 
